@@ -1,3 +1,6 @@
+/**
+ * Created by Administrator on 2018/5/14.
+ */
 import React, {Component} from 'react';
 import {
     StyleSheet,
@@ -9,52 +12,42 @@ import {
 
 import PropTypes from 'prop-types';
 
-export default class Counter extends Component {
-
-
+export default class Counter1 extends Component {
+    // 构造
     constructor(props) {
         super(props);
-        //初始状态
+        // 初始状态
         this.state = {
-
             value: this.props.initValue || 1
         };
         this._update = this._update.bind(this);
     }
 
-    //默认属性
+    // 默认属性
     static defaultProps = {
         initValue: 1,
-        onUpdate: f => f// 默认是一个什么都不做的函数。
+        onUpdate: f => f // 默认是一个什么都不做的函数。
     };
 
     render() {
-        return (
-
+        return ( // 渲染布局
             <View style={[this.props.style, styles.operatingBox]}>
 
                 <TouchableOpacity activeOpacity={0.2} onPress={this._reduce.bind(this)}>
-
                     <View style={styles.reduce}>
-
                         <Text allowFontScaling={false} style={[styles.btn1]}>-</Text>
                     </View>
                 </TouchableOpacity>
-
                 <View style={styles.inpBox}>
-
                     <TextInput style={styles.inp1}
                                returnKeyType='done'
                                maxLength={3}
                                onEndEditing={this._checkNumber.bind(this)}
                                value={this.state.value.toString()}
                                keyboardType="numeric"
-
                                onChangeText={(txt) => this._update(Number(txt))}
                                autoFocus={false}
-
                                underlineColorAndroid="transparent">
-
                     </TextInput>
                 </View>
 
@@ -68,7 +61,6 @@ export default class Counter extends Component {
     }
 
     _checkNumber() {
-
         let value = this.state.value;
         console.log(value);
         if (value === '' || value < 1) {
@@ -79,16 +71,14 @@ export default class Counter extends Component {
         this._update(value);
     }
 
+
     _reduce() {
-
         let value = this.state.value - 1;
-
         if (value < 1) value = 1;
         this._update(value);
     }
 
     _plus() {
-
         this._update(this.state.value + 1);
     }
 
@@ -96,10 +86,10 @@ export default class Counter extends Component {
         this.props.onUpdate(this.state.value, value);
         this.setState({value: value})
     }
-
 }
-//样式文件
 
+
+// 样式文件
 const styles = StyleSheet.create({
     operatingBox: {
         width: 120,
@@ -143,11 +133,9 @@ const styles = StyleSheet.create({
         fontSize: 14
     },
 });
-Counter.propTypes= {
+//这个地方的错误，，propTypes 写成了 proptypes
+Counter1.propTypes = {
     initValue: PropTypes.number,
     style: PropTypes.object,
     onUpdate: PropTypes.func
 };
-
-
-

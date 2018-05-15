@@ -11,6 +11,7 @@ import {
     Text,
     View
 } from 'react-native';
+import Counter1 from "./src/component/Counter1"
 import Counter from "./src/component/Counter"
 // const instructions = Platform.select({
 //   ios: 'Press Cmd+R to reload,\n' +
@@ -38,7 +39,6 @@ export default class App extends Component<Props> {
                 <Text style={{margin: 10, fontSize: 20, color: 'black'}}>总计 {this.state.sum}</Text>
                 <Counter style={{margin: 10}} onUpdate={this.onUpdate} initValue={this.initValues[0]}/>
                 <Counter style={{margin: 10}} onUpdate={this.onUpdate} initValue={this.initValues[1]}/>
-                <Counter style={{margin: 10}} onUpdate={this.onUpdate} initValue={this.initValues[2]}/>
             </View>
         );
     }
