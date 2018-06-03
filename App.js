@@ -6,55 +6,79 @@
 
 import React, {Component} from 'react';
 import {
+    createStackNavigator,
+    createBottomTabNavigator,
+    createMaterialTopTabNavigator
 
-    StyleSheet,
-    Text,
-    View
-} from 'react-native';
+} from 'react-navigation';
+
+
+
+//页面切换动画插入器
+import CardStackStyleInterpolator from 'react-navigation/src/views/StackView/StackViewStyleInterpolator';
 import Counter1 from "./src/component/Counter1"
 import Counter from "./src/component/Counter"
-// const instructions = Platform.select({
-//   ios: 'Press Cmd+R to reload,\n' +
-//     'Cmd+D or shake for dev menu',
-//   android: 'Double tap R on your keyboard to reload,\n' +
-//     'Shake or press menu button for dev menu',
-// });
+import MyPage from "./src/pages/MyPage"
+import Splash from "./src/pages/SplashPage"
+import Index from "./src/pages/IndexPage"
+import theme from "./src/config/theme"
 
-type Props = {};
-export default class App extends Component<Props> {
-    constructor(props) {
-        super(props);
-        this.initValues = [1, 2, 3];
-        const initSum = this.initValues.reduce((a, b) => a + b, 0);
-        this.state = {
-            sum: initSum
-        };
-        this.onUpdate = this.onUpdate.bind(this)
+// 矢量图
+import Icon from 'react-native-vector-icons/Ionicons';
+type
+Props = {};
+
+const MyTab = createBottomTabNavigator({
+    Index: {
+            screen: Index,
+            navigationOptions: {
+                tabBarLabel: '首页',
+                tabBarIcon: ({focused, tintColor}) => (
+                    <Icon name={`ios-home${focused ? '' : '-outline'}`} size={25} color={tintColor}/>
+                )
+            }
+        },
+        MyPage: {
+            screen: MyPage,
+            navigationOptions: {
+                tabBarLabel: '我的',
+                tabBarIcon: ({focused, tintColor}) => (
+                    <Icon name={`ios-person${focused ? '' : '-outline'}`} size={25} color={tintColor}/>
+                )
+            }
+        }
+    }, {
+        tabBarOptions: {
+            // label和icon的前景色 活跃状态下（选中）
+            activeTintColor: theme.primaryColor,
+            // label和icon的背景色 不活跃状态下
+            inactiveBackgroundColor: theme.lightGray,
+            // label和icon的前景色 不活跃状态下(未选中)
+            inactiveTintColor: theme.lightBlack,
+        }
     }
-
-
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text style={{margin: 10, fontSize: 20, color: 'black'}}>总计 {this.state.sum}</Text>
-                <Counter style={{margin: 10}} onUpdate={this.onUpdate} initValue={this.initValues[0]}/>
-                <Counter style={{margin: 10}} onUpdate={this.onUpdate} initValue={this.initValues[1]}/>
-            </View>
-        );
+);
+const App = createStackNavigator({
+    Splash: {
+        screen: Splash,
+        navigationOptions: {
+            gesturesEnabled: true,
+            header: null  //去掉 react-navigation 提供的标题
+        }
+    },
+    MyTab: {
+        screen: MyTab,
+        navigationOptions: {
+            gesturesEnabled: true,
+            header: null
+        }
     }
-
-    onUpdate(oldValue, newValue) {
-        const valueChange = newValue - oldValue;
-        this.setState({sum: this.state.sum + valueChange})
-    }
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    }
-
+}, {
+    mode: 'card',// 页面切换模式, 左右是card(相当于iOS中的push效果), 上下是modal(相当于iOS中的modal效果)
+    headerMode: 'none',//// 导航栏的显示模式, screen: 有渐变透明效果, float: 无透明效果, none: 隐藏导航栏
+    transitionConfig: () => ({ //切换动画
+        screenInterpolator: CardStackStyleInterpolator.forHorizontal //水平动画
+    })
 });
+
+export default App
