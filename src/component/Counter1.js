@@ -38,6 +38,7 @@ export default class Counter1 extends Component {
                         <Text allowFontScaling={false} style={[styles.btn1]}>-</Text>
                     </View>
                 </TouchableOpacity>
+
                 <View style={styles.inpBox}>
                     <TextInput style={styles.inp1}
                                returnKeyType='done'
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent'
     },
     inpBox: {
-        flex: 1,
+        flex: 1,//让所有弹性盒模型对象的子元素都有相同的长度，且忽略它们内部的内容
         borderRightWidth: 1,
         borderRightColor: '#ddd',
     },
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
         width: 34,
         height: 34,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center',//在弹性盒对象的 <div> 元素中的各项周围留有空白：
         borderRightWidth: 1,
         borderRightColor: '#ddd',
     },
