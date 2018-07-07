@@ -1,12 +1,14 @@
 /**
  * Created by Administrator on 2018/6/3.
  */
+'use strict';
 import React,{Component} from 'react';
 
 import{
     Text,
     View,
-    StyleSheet
+    StyleSheet,
+
 } from 'react-native';
 
 type

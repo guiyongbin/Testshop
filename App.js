@@ -3,7 +3,7 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-
+'use strict';
 import React, {Component} from 'react';
 import {
     createStackNavigator,
@@ -11,7 +11,6 @@ import {
     createMaterialTopTabNavigator
 
 } from 'react-navigation';
-
 
 
 //页面切换动画插入器
@@ -22,14 +21,14 @@ import MyPage from "./src/pages/MyPage"
 import Splash from "./src/pages/SplashPage"
 import Index from "./src/pages/IndexPage"
 import theme from "./src/config/theme"
-
+import list from "./src/pages/ListPage"
 // 矢量图
 import Icon from 'react-native-vector-icons/Ionicons';
 type
-Props = {};
+    Props = {};
 
 const MyTab = createBottomTabNavigator({
-    Index: {
+        Index: {
             screen: Index,
             navigationOptions: {
                 tabBarLabel: '首页',
@@ -38,6 +37,17 @@ const MyTab = createBottomTabNavigator({
                 )
             }
         },
+
+        list: {
+            screen: list,
+            navigationOptions: {
+                tabBarLabel: '列表',
+                tabBarIcon: ({focused, tintColor}) => (
+                    <Icon name={`ios-home${focused ? '' : '-outline'}`} size={25} color={tintColor}/>
+                )
+            }
+        },
+
         MyPage: {
             screen: MyPage,
             navigationOptions: {
@@ -66,6 +76,18 @@ const App = createStackNavigator({
             header: null  //去掉 react-navigation 提供的标题
         }
     },
+
+    Index: {
+        screen: Index,
+        navigationOptions: {
+            tabBarLabel: '首页',
+            tabBarIcon: ({focused, tintColor}) => (
+                <Icon name={`ios-home${focused ? '' : '-outline'}`} size={25} color={tintColor}/>
+            )
+        }
+    },
+
+
     MyTab: {
         screen: MyTab,
         navigationOptions: {

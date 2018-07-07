@@ -1,8 +1,10 @@
 /**
  * Created by Administrator on 2018/6/3.
  */
+'use strict';
 import React,{Component} from 'react';
 import{
+
     Image,StatusBar,
     View
 } from 'react-native';
@@ -12,7 +14,7 @@ export default class SplashPage extends Component {
     componentDidMount(){
         //定时任务
         this.timer=setTimeout(()=>{
-            this.props.navigation.replace("MyTab");
+            this.props.navigation.replace("Index");
             this.timer&&clearTimeout(this.timer);
         },1000);
     }
